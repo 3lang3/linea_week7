@@ -29,10 +29,10 @@ npm run swc -a lineaster # 跑第二个任务 [Lineaster] (follow和collect需�
 ...
 ```
 
+> 全部任务: ensreg, lineaster, snapshotx, lineal2domain, atticc, vitidiary, zkholdem, moonlight, metamerge, readon, battlemon, tatarot, stationx, meet, idriss
+
 支持并发运行，例如：
 
 ```bash
 npm run swc -a ensreg -b 10 # 例如100个私钥，分十份并发跑，节省时间，但是会降低容错
 ```
-
-> 全部任务: ensreg, lineaster, snapshotx, lineal2domain, atticc, vitidiary, zkholdem, moonlight, metamerge, readon, battlemon, tatarot, stationx, meet, idriss
