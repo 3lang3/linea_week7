@@ -833,58 +833,60 @@ const idriss = async (wallet: ethers.Wallet) => {
   }
 }
 
-cli(async ({ action, pk }) => {
-  const wallet = new ethers.Wallet(pk);
-
-  try {
-    console.log(`[${action}] ${wallet.address} 开始执行`)
-    if (action === 'ensreg') {
-      await ensReg(wallet);
+cli(async ({ action, pks, startIdx, endIdx }) => {
+  for (let k = startIdx; k <= endIdx; k++) {
+    const pk = pks[k];
+    const wallet = new ethers.Wallet(pk);
+    try {
+      console.log(`[${action}] ${wallet.address} 开始执行`)
+      if (action === 'ensreg') {
+        await ensReg(wallet);
+      }
+      if (action === 'lineaster') {
+        await lineaster(wallet);
+      }
+      if (action === 'snapshotx') {
+        await snapshotX(wallet);
+      }
+      if (action === 'lineal2domain') {
+        await lineal2Domain(wallet);
+      }
+      if (action === 'atticc') {
+        await atticc(wallet);
+      }
+      if (action === 'vitidiary') {
+        await vitidiary(wallet);
+      }
+      if (action === 'zkholdem') {
+        await zkholdem(wallet);
+      }
+      if (action === 'moonlight') {
+        await moonlight(wallet);
+      }
+      if (action === 'metamerge') {
+        await metaMerge(wallet);
+      }
+      if (action === 'readon') {
+        await readon(wallet);
+      }
+      if (action === 'battlemon') {
+        await battlemon(wallet);
+      }
+      if (action === 'tatarot') {
+        await tatarot(wallet);
+      }
+      if (action === 'stationx') {
+        await stationX(wallet);
+      }
+      if (action === 'meet') {
+        await meet(wallet);
+      }
+      if (action === 'idriss') {
+        await idriss(wallet);
+      }
+      console.log(`[${action}] ${wallet.address} 执行完毕`)
+    } catch (error) {
+      console.log(error?.reason || error?.message)
     }
-    if (action === 'lineaster') {
-      await lineaster(wallet);
-    }
-    if (action === 'snapshotx') {
-      await snapshotX(wallet);
-    }
-    if (action === 'lineal2domain') {
-      await lineal2Domain(wallet);
-    }
-    if (action === 'atticc') {
-      await atticc(wallet);
-    }
-    if (action === 'vitidiary') {
-      await vitidiary(wallet);
-    }
-    if (action === 'zkholdem') {
-      await zkholdem(wallet);
-    }
-    if (action === 'moonlight') {
-      await moonlight(wallet);
-    }
-    if (action === 'metamerge') {
-      await metaMerge(wallet);
-    }
-    if (action === 'readon') {
-      await readon(wallet);
-    }
-    if (action === 'battlemon') {
-      await battlemon(wallet);
-    }
-    if (action === 'tatarot') {
-      await tatarot(wallet);
-    }
-    if (action === 'stationx') {
-      await stationX(wallet);
-    }
-    if (action === 'meet') {
-      await meet(wallet);
-    }
-    if (action === 'idriss') {
-      await idriss(wallet);
-    }
-    console.log(`[${action}] ${wallet.address} 执行完毕`)
-  } catch (error) {
-    console.log(error?.reason || error?.message)
   }
 });

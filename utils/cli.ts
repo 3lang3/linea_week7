@@ -3,8 +3,10 @@ import { getTxtContent } from "./utils";
 import path from "node:path";
 
 type CallbackFn = (p: {
-  pk: string,
   action: string,
+  startIdx: number,
+  endIdx: number,
+  pks: string[],
 }) => Promise<void>;
 
 export const cli = async (cb: CallbackFn, run = true) => {
@@ -28,7 +30,7 @@ export const cli = async (cb: CallbackFn, run = true) => {
     },
   });
 
-  const keys = getTxtContent(path.resolve(__dirname, '../keys.txt')) as string[];
+  const keys = getTxtContent(path.resolve(__dirname, '../keys.txt')).filter(Boolean) as string[];
   const [startIdx, endIdx] = [0, keys.length - 1];
   // 将startIdx和endIdx的区间分成slice份
   const s = batch || 1;
@@ -38,14 +40,11 @@ export const cli = async (cb: CallbackFn, run = true) => {
     const start = startIdx + i * sliceSize;
     let end = startIdx + (i + 1) * sliceSize - 1;
     end = end >= endIdx ? endIdx : end;
-    for (let j = start; j <= end; j++) {
-      const pk = keys[j];
-      fns.push(async () => {
-        await cb?.({
-          action, pk
-        });
-      })
-    }
+    fns.push(async () => {
+      await cb?.({
+        action, pks: keys, startIdx: start, endIdx: end
+      });
+    })
   }
   console.time('total');
   await Promise.all(fns.map(fn => fn()));
